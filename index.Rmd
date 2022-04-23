@@ -2,10 +2,13 @@
 title: "Dashboard example"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: scroll  
+    orientation: row
+    vertical_layout: fill  
     social: ["menu"]
     source_code: embed
+    theme:
+            version: 4
+            bootswatch: spacelab
 ---
 
 ```{r setup, include=FALSE}
@@ -19,11 +22,31 @@ data("penguins")
 
 ```
 
-plots
-======================
+Plots {data-navmenu="Pages"}
+===================================================================
 
-Column {data-width=650}
------------------------------------------------------------------------
+Sidebar {.sidebar}
+-------------------------------------------------------------------
+
+### Penguin stats
+
+The number of penguins in the data is `r nrow(penguins)`
+<!--
+This is a coment
+-->
+
+Row
+-------------------------------------------------------------------
+
+### Number of penguins
+
+```{r}
+valueBox(nrow(penguins), icon = "fa-linux")
+```
+
+
+Column {.tabset}
+-------------------------------------------------------------------
 
 ### Scatterplot bill_length_mm  vs  bill_depth_mm,
 
@@ -36,9 +59,6 @@ a <- penguins |>
 
 ggplotly(a)
 ```
-
-Column {data-width=350}
------------------------------------------------------------------------
 
 ### Chart B
 
@@ -60,8 +80,8 @@ penguins |>
         geom_boxplot() 
 ```
 
-Data
-============
+Data {data-navmenu="Pages"}
+==================================================================
 
 Column {data-width=650}
 -----------------------------------------------------------------------

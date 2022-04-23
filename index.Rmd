@@ -1,0 +1,76 @@
+---
+title: "Dashboard example"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: scroll  
+    social: ["menu"]
+    source_code: embed
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(palmerpenguins)#dataset
+library(plotly)
+library(DT)
+library(fontawesome)
+data("penguins")
+
+```
+
+plots
+======================
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Scatterplot bill_length_mm  vs  bill_depth_mm,
+
+```{r}
+a <- penguins |> 
+        ggplot(aes(bill_length_mm, 
+                   bill_depth_mm,
+                   color = species)) + 
+        geom_point()
+
+ggplotly(a)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+penguins |> 
+        ggplot(aes(flipper_length_mm, 
+                   fill = species)) + 
+        geom_histogram()+
+        facet_wrap(~species)
+```
+
+### Chart C
+
+```{r}
+penguins |> 
+        ggplot(aes(body_mass_g, 
+                   sex,
+                   fill = sex)) + 
+        geom_boxplot() 
+```
+
+Data
+============
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+```{r}
+penguins |>   datatable(extensions = "Buttons",
+                        options = list(dom = "Blfrtip",
+                                       buttons = c("copy",
+                                       "csv",
+                                       "excel",
+                                       "print")))
+```
+
